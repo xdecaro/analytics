@@ -5,7 +5,7 @@ Analytics provides cross-product dashboards, KPI, metrics, datasets, trends and 
 ## Technical identity
 
 - Component: `com_xdecaroanalytics`
-- PHP namespace: `Xdecaro\Component\Analytics`
+- PHP namespace: `xdecaro\Component\Analytics`
 - Reserved package identity: `pkg_xdecaroanalytics`
 - Reserved database namespace: `#__xdecaroanalytics_*`
 
@@ -15,9 +15,9 @@ Analytics does not become the operational source of truth. Source data stays own
 
 Initial Core integration targets:
 
-- `Xdecaro\Core\Integration\EntityReference`
-- `Xdecaro\Core\Integration\Capability`
-- `Xdecaro\Core\Integration\IntegrationEvent`
+- `xdecaro\Core\Integration\EntityReference`
+- `xdecaro\Core\Integration\Capability`
+- `xdecaro\Core\Integration\IntegrationEvent`
 - shared Core UI assets when available
 
 Initial capabilities:

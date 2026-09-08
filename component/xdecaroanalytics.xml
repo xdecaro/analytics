@@ -8,7 +8,7 @@
   <authorUrl>https://github.com/xdecaro/analytics</authorUrl>
   <version>0.1.0</version>
   <description>COM_XDECAROANALYTICS_XML_DESCRIPTION</description>
-  <namespace path="src">Xdecaro\Component\Analytics</namespace>
+  <namespace path="src">xdecaro\Component\Analytics</namespace>
   <administration>
     <menu view="dashboard">COM_XDECAROANALYTICS</menu>
     <files folder="admin">
