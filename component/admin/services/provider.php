@@ -1,5 +1,5 @@
 <?php
-namespace Xdecaro\Component\Decaroanalytics\Administrator\Service;
+namespace Xdecaro\Component\Analytics\Administrator\Service;
 
 defined('_JEXEC') or die;
 
@@ -10,15 +10,15 @@ use Joomla\CMS\Extension\Service\Provider\MVCFactory;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
-use Xdecaro\Component\Decaroanalytics\Administrator\Extension\DecaroanalyticsComponent;
+use Xdecaro\Component\Analytics\Administrator\Extension\AnalyticsComponent;
 
 return new class implements ServiceProviderInterface {
     public function register(Container $container): void
     {
-        $container->registerServiceProvider(new MVCFactory('Xdecaro\\Component\\Decaroanalytics'));
-        $container->registerServiceProvider(new ComponentDispatcherFactory('Xdecaro\\Component\\Decaroanalytics'));
+        $container->registerServiceProvider(new MVCFactory('Xdecaro\\Component\\Analytics'));
+        $container->registerServiceProvider(new ComponentDispatcherFactory('Xdecaro\\Component\\Analytics'));
         $container->share(CoreIntegrationService::class, static fn (): CoreIntegrationService => new CoreIntegrationService());
-        $container->set(ComponentInterface::class, static fn (Container $container): ComponentInterface => new DecaroanalyticsComponent(
+        $container->set(ComponentInterface::class, static fn (Container $container): ComponentInterface => new AnalyticsComponent(
             $container->get(ComponentDispatcherFactoryInterface::class),
             $container->get(MVCFactoryInterface::class)
         ));

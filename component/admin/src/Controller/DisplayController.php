@@ -1,5 +1,5 @@
 <?php
-namespace Xdecaro\Component\Decaroanalytics\Administrator\Controller;
+namespace Xdecaro\Component\Analytics\Administrator\Controller;
 
 defined('_JEXEC') or die;
 

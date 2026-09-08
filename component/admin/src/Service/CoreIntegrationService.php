@@ -1,5 +1,5 @@
 <?php
-namespace Xdecaro\Component\Decaroanalytics\Administrator\Service;
+namespace Xdecaro\Component\Analytics\Administrator\Service;
 
 defined('_JEXEC') or die;
 
@@ -21,9 +21,9 @@ final class CoreIntegrationService
         }
 
         return [
-            new Capability('com_decaroanalytics', 'analytics.metrics', '1'),
-            new Capability('com_decaroanalytics', 'analytics.datasets', '1'),
-            new Capability('com_decaroanalytics', 'analytics.reports', '1'),
+            new Capability('com_xdecaroanalytics', 'analytics.metrics', '1'),
+            new Capability('com_xdecaroanalytics', 'analytics.datasets', '1'),
+            new Capability('com_xdecaroanalytics', 'analytics.reports', '1'),
         ];
     }
 
@@ -31,7 +31,7 @@ final class CoreIntegrationService
     public function reportReference($id): ?EntityReference
     {
         return $this->isAvailable()
-            ? new EntityReference('com_decaroanalytics', 'report', $id)
+            ? new EntityReference('com_xdecaroanalytics', 'report', $id)
             : null;
     }
 }

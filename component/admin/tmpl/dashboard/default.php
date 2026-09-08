@@ -6,8 +6,8 @@ use Joomla\CMS\Language\Text;
 <div class="xdecaro-scope">
   <div class="card">
     <div class="card-body">
-      <h1 class="h3 mb-3"><?php echo Text::_('COM_DECAROANALYTICS_DASHBOARD'); ?></h1>
-      <p><?php echo Text::_('COM_DECAROANALYTICS_DASHBOARD_INTRO'); ?></p>
+      <h1 class="h3 mb-3"><?php echo Text::_('COM_XDECAROANALYTICS_DASHBOARD'); ?></h1>
+      <p><?php echo Text::_('COM_XDECAROANALYTICS_DASHBOARD_INTRO'); ?></p>
     </div>
   </div>
 </div>

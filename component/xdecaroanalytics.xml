@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" method="upgrade">
-  <name>COM_DECAROANALYTICS</name>
+  <name>COM_XDECAROANALYTICS</name>
   <author>Luca De Caro</author>
   <creationDate>2026-09</creationDate>
   <copyright>Copyright (C) 2026 Luca De Caro. All rights reserved.</copyright>
   <license>GNU General Public License version 2 or later</license>
   <authorUrl>https://github.com/xdecaro/analytics</authorUrl>
   <version>0.1.0</version>
-  <description>COM_DECAROANALYTICS_XML_DESCRIPTION</description>
-  <namespace path="src">Xdecaro\Component\Decaroanalytics</namespace>
+  <description>COM_XDECAROANALYTICS_XML_DESCRIPTION</description>
+  <namespace path="src">Xdecaro\Component\Analytics</namespace>
   <administration>
-    <menu view="dashboard">COM_DECAROANALYTICS</menu>
+    <menu view="dashboard">COM_XDECAROANALYTICS</menu>
     <files folder="admin">
       <filename>access.xml</filename>
       <filename>config.xml</filename>
