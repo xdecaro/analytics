@@ -1,0 +1,51 @@
+name: Analytics Release
+on:
+  push:
+    branches: [main]
+    paths: [VERSION]
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: simplexml, mbstring
+          coverage: none
+      - name: Read version
+        id: version
+        run: |
+          set -euo pipefail
+          VERSION="$(tr -d '[:space:]' < VERSION)"; test -n "$VERSION"; echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+      - name: Stop if release already exists
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          if gh release view "v${{ steps.version.outputs.version }}" >/dev/null 2>&1; then echo "Release already exists; bump VERSION."; exit 1; fi
+      - name: Build and validate
+        run: bash build/build.sh
+      - name: Synchronize Joomla update checksum
+        run: php build/update-feed-checksum.php
+      - name: Verify release checksum
+        run: |
+          set -euo pipefail
+          VERSION="${{ steps.version.outputs.version }}"; PACKAGE="dist/pkg_xdecaroanalytics_${VERSION}.zip"; SHA256="$(sha256sum "$PACKAGE"|awk '{print $1}')"
+          grep -q "<sha256>${SHA256}</sha256>" updates/pkg_xdecaroanalytics.xml
+          grep -q "${SHA256}  pkg_xdecaroanalytics_${VERSION}.zip" dist/SHA256SUMS.txt
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          VERSION="${{ steps.version.outputs.version }}"
+          gh release create "v${VERSION}" "dist/com_xdecaroanalytics_${VERSION}.zip" "dist/plg_task_xdecaroanalytics_${VERSION}.zip" "dist/pkg_xdecaroanalytics_${VERSION}.zip" dist/SHA256SUMS.txt --title "Analytics by xdecaro ${VERSION}" --notes "Analytics by xdecaro ${VERSION}. Stable provider-based KPI, dataset, snapshot and reporting layer with CSV export, Scheduler integration and optional Core capability discovery."
+      - name: Publish update-feed checksum
+        run: |
+          set -euo pipefail
+          VERSION="${{ steps.version.outputs.version }}"; git config user.name "github-actions[bot]"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"; git add updates/pkg_xdecaroanalytics.xml
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Publish SHA-256 for Analytics by xdecaro ${VERSION}"; git pull --rebase origin main; git push origin HEAD:main

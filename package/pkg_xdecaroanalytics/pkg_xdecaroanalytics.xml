@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="package" method="upgrade">
+  <name>PKG_XDECAROANALYTICS</name><packagename>xdecaroanalytics</packagename><version>1.0.0</version><creationDate>2026-09</creationDate><author>Luca De Caro</author><copyright>Copyright (C) 2026 Luca De Caro.</copyright><license>GNU General Public License version 2 or later</license><authorUrl>https://github.com/xdecaro/analytics</authorUrl><description>Analytics by xdecaro package.</description>
+  <scriptfile>script.php</scriptfile>
+  <files><file type="component" id="com_xdecaroanalytics">com_xdecaroanalytics.zip</file><file type="plugin" id="xdecaroanalytics" group="task">plg_task_xdecaroanalytics.zip</file></files>
+  <updateservers><server type="extension" priority="1" name="Analytics by xdecaro">https://raw.githubusercontent.com/xdecaro/analytics/main/updates/pkg_xdecaroanalytics.xml</server></updateservers>
+</extension>

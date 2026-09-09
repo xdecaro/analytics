@@ -1,29 +1,27 @@
 # Analytics by xdecaro
 
-Analytics provides cross-product dashboards, KPI, metrics, datasets, trends and reports for the xdecaro Joomla ecosystem.
+Analytics is the cross-product KPI, dataset, trend and reporting layer for the xdecaro Joomla ecosystem.
 
-## Technical identity
+## 1.0.0
 
-- Component: `com_xdecaroanalytics`
-- PHP namespace: `xdecaro\Component\Analytics`
-- Reserved package identity: `pkg_xdecaroanalytics`
-- Reserved database namespace: `#__xdecaroanalytics_*`
+- provider API and event-based discovery;
+- metrics and datasets without direct reads of private component tables;
+- saved reports with provider-specific JSON context;
+- metric snapshots for trends;
+- stored report runs and CSV export;
+- Joomla Scheduled Tasks refresh and retention maintenance;
+- optional Core 1.4 `CapabilityRegistry` integration;
+- shared Core UI assets when available;
+- Joomla 4, 5 and 6 package distribution.
 
-The package and database identifiers are reserved for future implementation; they must not be treated as shipped until their manifests/schema actually exist.
+Analytics owns only analytics configuration, snapshots and cached report results. The originating product remains the source of truth for operational data.
 
-Analytics does not become the operational source of truth. Source data stays owned by the originating components; Analytics reads documented providers/events and may maintain only analytics-owned caches or snapshots where justified.
+### Provider contract
 
-Initial Core integration targets:
+Integrations implement `AnalyticsProviderInterface` and register through `onXdecaroAnalyticsRegisterProviders`. Provider keys and metric/dataset keys are stable identifiers. Providers are responsible for their own ACL-sensitive query semantics; Analytics never treats an entity reference or a filter value as authorization.
 
-- `xdecaro\Core\Integration\EntityReference`
-- `xdecaro\Core\Integration\Capability`
-- `xdecaro\Core\Integration\IntegrationEvent`
-- shared Core UI assets when available
-
-Initial capabilities:
+### Capabilities
 
 - `analytics.metrics`
 - `analytics.datasets`
 - `analytics.reports`
-
-Target Joomla 4, 5 and 6 only where runtime compatibility is actually verified.

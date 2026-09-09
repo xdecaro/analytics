@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><form><fields name="params"><fieldset name="basic"><field name="batch" type="number" min="1" max="100" default="25" label="PLG_TASK_XDECAROANALYTICS_BATCH" /></fieldset></fields></form>

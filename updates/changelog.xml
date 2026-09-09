@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<changelogs><changelog><element>pkg_xdecaroanalytics</element><type>package</type><version>1.0.0</version><security><item>Provider boundary prevents arbitrary SQL access to other product databases.</item></security><addition><item>Provider registry and Joomla event discovery.</item><item>KPI metrics, datasets, snapshots, saved reports and CSV export.</item><item>Scheduled report refresh and retention maintenance.</item><item>Optional Core 1.4 capability integration.</item></addition></changelog></changelogs>
