@@ -4,6 +4,7 @@ namespace xdecaro\Component\Analytics\Administrator\Service;
 defined('_JEXEC') or die;
 
 use xdecaro\Core\Integration\Capability;
+use xdecaro\Core\Integration\CapabilityRegistry;
 use xdecaro\Core\Integration\EntityReference;
 
 final class CoreIntegrationService
@@ -13,13 +14,17 @@ final class CoreIntegrationService
         return class_exists(Capability::class) && class_exists(EntityReference::class);
     }
 
+    public function hasCapabilityRegistry(): bool
+    {
+        return class_exists(CapabilityRegistry::class);
+    }
+
     /** @return array<int,Capability> */
     public function getCapabilities(): array
     {
         if (!$this->isAvailable()) {
             return [];
         }
-
         return [
             new Capability('com_xdecaroanalytics', 'analytics.metrics', '1'),
             new Capability('com_xdecaroanalytics', 'analytics.datasets', '1'),
@@ -27,11 +32,13 @@ final class CoreIntegrationService
         ];
     }
 
-    /** @param int|string $id */
+    public function registerCapabilities(CapabilityRegistry $registry): void
+    {
+        $registry->registerMany($this->getCapabilities());
+    }
+
     public function reportReference($id): ?EntityReference
     {
-        return $this->isAvailable()
-            ? new EntityReference('com_xdecaroanalytics', 'report', $id)
-            : null;
+        return $this->isAvailable() ? new EntityReference('com_xdecaroanalytics', 'report', $id) : null;
     }
 }
