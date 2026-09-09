@@ -3,8 +3,8 @@
   <section name="component">
     <action name="core.admin" title="JACTION_ADMIN" />
     <action name="core.manage" title="JACTION_MANAGE" />
-    <action name="core.create" title="JACTION_CREATE" />
-    <action name="core.edit" title="JACTION_EDIT" />
-    <action name="core.delete" title="JACTION_DELETE" />
+    <action name="analytics.manage" title="COM_XDECAROANALYTICS_ACTION_MANAGE" />
+    <action name="analytics.run" title="COM_XDECAROANALYTICS_ACTION_RUN" />
+    <action name="analytics.export" title="COM_XDECAROANALYTICS_ACTION_EXPORT" />
   </section>
 </access>
