@@ -5,7 +5,6 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\Database\DatabaseInterface;
-use Joomla\Database\ParameterType;
 use InvalidArgumentException;
 
 final class SnapshotService
@@ -21,9 +20,15 @@ final class SnapshotService
 
     public function capture(string $providerKey, string $metricKey, array $context = []): int
     {
-        $metric = $this->analytics->metric($providerKey, $metricKey, $context);
-        $contextJson = $this->canonicalJson($context);
-        $contextHash = hash('sha256', $contextJson);
+        return $this->storeResult($providerKey, $metricKey, $context, $this->analytics->metric($providerKey, $metricKey, $context));
+    }
+
+    public function storeResult(string $providerKey, string $metricKey, array $context, array $metric): int
+    {
+        if (!array_key_exists('value', $metric)) {
+            throw new InvalidArgumentException('Metric snapshot requires a value.');
+        }
+        $contextHash = hash('sha256', $this->canonicalJson($context));
         $value = $metric['value'];
         $numeric = is_int($value) || is_float($value) || (is_string($value) && is_numeric($value)) ? (string) $value : null;
         $text = $numeric === null ? mb_substr((string) $value, 0, 255) : null;
@@ -33,7 +38,6 @@ final class SnapshotService
         }
         $measured = Factory::getDate()->toSql();
         $created = $measured;
-
         $query = $this->db->getQuery(true)
             ->insert($this->db->quoteName('#__xdecaroanalytics_snapshots'))
             ->columns($this->db->quoteName(['provider_key','metric_key','context_hash','value_numeric','value_text','payload_json','measured_at','created']))
@@ -81,13 +85,9 @@ final class SnapshotService
     private function sortRecursive(array &$value): void
     {
         foreach ($value as &$item) {
-            if (is_array($item)) {
-                $this->sortRecursive($item);
-            }
+            if (is_array($item)) { $this->sortRecursive($item); }
         }
         unset($item);
-        if ($value !== [] && array_keys($value) !== range(0, count($value) - 1)) {
-            ksort($value);
-        }
+        if ($value !== [] && array_keys($value) !== range(0, count($value) - 1)) { ksort($value); }
     }
 }
